@@ -1,0 +1,25 @@
+{
+  "name": "angular-stripe",
+  "version": "0.0.0",
+  "description": "Angular service provider for interacting with Stripe",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "karma start --browser PhantomJS --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bendrucker/angular-stripe.git"
+  },
+  "keywords": [
+    "angular",
+    "stripe",
+    "promise",
+    "wrapper"
+  ],
+  "author": "Ben Drucker <bvdrucker@gmail.com> (http://www.bendrucker.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bendrucker/angular-stripe/issues"
+  },
+  "homepage": "https://github.com/bendrucker/angular-stripe"
+}
