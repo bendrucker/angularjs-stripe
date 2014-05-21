@@ -15,7 +15,7 @@ describe('Provider', function () {
     angular.mock.module(function (stripeProvider) {
       expect(stripeProvider.setPublishableKey).to.equal(Stripe.setPublishableKey);
     });
-    inject();
+    angular.mock.inject();
   });
 
 });
