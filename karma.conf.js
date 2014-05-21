@@ -10,13 +10,13 @@ module.exports = function (config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai-sinon', 'browserify'],
+    frameworks: ['browserify', 'mocha', 'chai-sinon'],
 
 
     // list of files / patterns to load in the browser
     browserify: {
-        files: ['test/*.js'],
-        debug: true
+        debug: true,
+        transform: ['brfs']
     },
 
 
@@ -25,11 +25,15 @@ module.exports = function (config) {
       
     ],
 
+    files: [
+        'test/*.js'
+    ],
+
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        "/**/*.browserify": "browserify"
+        "test/*.js": "browserify"
     },
 
 
