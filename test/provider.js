@@ -5,8 +5,6 @@ var Stripe  = require('stripe');
 
 require('../src');
 
-require('angular-mocks');
-
 describe('Provider', function () {
 
   beforeEach(angular.mock.module('angular-stripe'));

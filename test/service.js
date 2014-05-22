@@ -5,8 +5,6 @@ var Stripe  = require('stripe');
 
 require('../src');
 
-require('angular-mocks');
-
 describe('Service', function () {
 
   this.timeout(50);
@@ -23,7 +21,7 @@ describe('Service', function () {
       });
 
       var stripe, $timeout;
-      beforeEach(inject(function (_stripe_, _$timeout_) {
+      beforeEach(angular.mock.inject(function (_stripe_, _$timeout_) {
         stripe = _stripe_;
         $timeout = _$timeout_;
       }));
@@ -40,31 +38,25 @@ describe('Service', function () {
         expect(spy).to.have.been.calledWith(data);
       });
 
-      it('resolves on success', function (done) {
+      it('resolves on success', function () {
         Stripe[resource].createToken = sinon.spy(function (data, callback) {
-          setTimeout(function () {
-            callback(200, response);
-            $timeout.flush();
-          });
+          $timeout(angular.bind(null, callback, 200, response));
         });
         method(data).then(function (res) {
           expect(res).to.equal(response);
-          done();
         });
+        $timeout.flush();
       });
 
-      it('rejects on error', function (done) {
+      it('rejects on error', function () {
         response.error = {};
         Stripe[resource].createToken = sinon.spy(function (data, callback) {
-          setTimeout(function () {
-            callback(400, response);
-            $timeout.flush();
-          });
+          $timeout(angular.bind(null, callback, 400, response));
         });
         method(data).catch(function (err) {
           expect(err).to.equal(response.error);
-          done();
         });
+        $timeout.flush();
       });
 
     });
