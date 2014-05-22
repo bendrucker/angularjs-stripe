@@ -1,3 +1,5 @@
+'use strict';
+
 var Stripe = require('stripe');
 
 module.exports = function () {
