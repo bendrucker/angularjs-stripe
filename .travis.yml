@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- '0.10'
+before_script:
+- npm install -g bower
+- bower install
+deploy:
+  provider: npm
+  email: bvdrucker@gmail.com
+  api_key:
+    secure: v/bu4eDJrTzplMHwOBLas5VxQsxLblu6xQVwSjmNrShXhzpGJYLswbj4yQKyymXsNj8H2rpgmRuTAWTrne9pZM2xU6mz/PKwucau40UZ9XcSEeZwLqcXCKhvYNea3BH/qS5AzrC6UFJzMBprSS7kQe8ZSyTl0uodLS5DY3OPf1I=
+  on:
+    tags: true
+    repo: bendrucker/angular-stripe

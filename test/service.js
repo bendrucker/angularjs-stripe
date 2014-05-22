@@ -7,7 +7,7 @@ require('../src');
 
 describe('Service', function () {
 
-  this.timeout(50);
+  this.timeout(500);
 
   beforeEach(angular.mock.module('angular-stripe'));
 
