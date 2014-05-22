@@ -16,7 +16,6 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     browserify: {
         debug: true,
-        transform: ['brfs']
     },
 
 
@@ -26,6 +25,9 @@ module.exports = function (config) {
     ],
 
     files: [
+        'components/angular/angular.js',
+        'components/angular-mocks/angular-mocks.js',
+        'components/stripe/index.js',
         'test/*.js'
     ],
 
@@ -33,7 +35,7 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        "test/*.js": "browserify"
+        'test/*.js': 'browserify'
     },
 
 
