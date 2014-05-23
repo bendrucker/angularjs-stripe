@@ -28,6 +28,8 @@ module.exports = function (config) {
         'components/angular/angular.js',
         'components/angular-mocks/angular-mocks.js',
         'components/stripe/index.js',
+        'node_modules/es5-shim/es5-shim.js',
+        'node_modules/chai-as-promised/lib/chai-as-promised.js',
         'test/*.js'
     ],
 

@@ -34,7 +34,9 @@
     "karma-mocha": "~0.1.3",
     "browserify": "~4.1.5",
     "browserify-shim": "~3.5.0",
-    "karma-bro": "bendrucker/karma-bro#d66c2b6ebfc47c2b66e132f5a22d9d02fb52b57f"
+    "karma-bro": "bendrucker/karma-bro#d66c2b6ebfc47c2b66e132f5a22d9d02fb52b57f",
+    "chai-as-promised": "~4.1.1",
+    "es5-shim": "~3.4.0"
   },
   "browserify-shim": {
     "angular": "global:angular",
