@@ -23,7 +23,8 @@
     "bower_components",
     "components",
     "test",
-    "tests"
+    "tests",
+    "karma.conf.js"
   ],
   "devDependencies": {
     "angular-mocks": "~1.2.16",
