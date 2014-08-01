@@ -4,6 +4,8 @@ node_js:
 before_script:
 - npm install -g bower
 - bower install
+after_script:
+- codeclimate < ./coverage/lcov.info
 deploy:
   provider: npm
   email: bvdrucker@gmail.com
@@ -12,3 +14,6 @@ deploy:
   on:
     tags: true
     repo: bendrucker/angular-stripe
+env:
+  global:
+    secure: KnNszIvbnBk4wHqQMvPKJSgeM7y2rzelelmdtFy/nBwIB+yjONDqUogdcLWU2u/PYfhsnRJ63JmI1sOr+FgW4m7u4a/QArYlm34/ZRvbxvg4OduurRZlVOHNTOpcwcX3EvMVQ/FCSRZhiE+10DruLKrjPtPdTlYtaEaHHMM29NM=
