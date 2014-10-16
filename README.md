@@ -33,22 +33,7 @@ angular
 
 ## Usage
 
-Inject `stripe` into your services or controllers to access the API methods. Each async method (`getToken`, `createToken`) returns a `$q` promise. If Stripe responds with an error, the promise will be rejected. 
-
-#### `stripe.getToken(token)` -> `promise`
-
-Retrieves the supplied token's status using [`Stripe.getToken`](https://stripe.com/docs/stripe.js#retrieving-a-token).
-
-```js
-stripe
-  .getToken('ch_stripe_token')
-  .then(function (token) {
-    console.log(token.used) // => true/false
-  })
-  .catch(function (err) {
-    console.log(err) // => something went wrong
-  });
-```
+Inject `stripe` into your services or controllers to access the API methods. `createToken` returns a `$q` promise. If Stripe responds with an error, the promise will be rejected. 
 
 #### `stripe.card.createToken(card)` -> `promise`
 

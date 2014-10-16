@@ -20,8 +20,8 @@ internals.promisify = function (receiver, method) {
 internals.wrap = function (source, options) {
   var angularStripe = {};
   angular.forEach(options, function (methods, receiver) {
-    var destination = receiver ? angularStripe[receiver] = {} : angularStripe;
-    receiver = receiver ? Stripe[receiver] : Stripe;
+    var destination = angularStripe[receiver] = {};
+    receiver = Stripe[receiver];
     /* istanbul ignore else */
     if (methods.promisify) angular.forEach(methods.promisify, function (method) {
       destination[method] = internals.promisify(receiver, method);
@@ -39,9 +39,6 @@ module.exports = [
     internals.$q = $q;
 
     return internals.wrap(Stripe, {
-      '': {
-        promisify: ['getToken']
-      },
       card: {
         reference: ['validateCardNumber', 'validateExpiry', 'validateCVC', 'cardType'],
         promisify: ['createToken']

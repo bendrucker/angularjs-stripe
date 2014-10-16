@@ -38,31 +38,6 @@ describe('stripe: Service', function () {
     sandbox.restore();
   });
 
-  describe('#getToken', function () {
-
-    it('calls the Stripe.js method with the data', function () {
-      sandbox.stub(Stripe, 'getToken');
-      stripe.getToken(data);
-      expect(Stripe.getToken).to.have.been.calledWith(data);
-    });
-
-    it('resolves on success', function () {
-      Stripe.getToken = successMock;
-      var promise = stripe.getToken(data);
-      $timeout.flush();
-      expect(promise).to.eventually.equal(response);
-    });
-
-    it('rejects on error', function () {
-      response.error = {};
-      Stripe.getToken = errorMock;
-      var promise = stripe.getToken();
-      $timeout.flush();
-      expect(promise).to.be.rejectedWith(response.error);
-    });
-
-  });
-
   describe('card', function () {
 
     it('exposes helper methods', function () {
