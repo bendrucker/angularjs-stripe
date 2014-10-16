@@ -33,20 +33,18 @@ internals.wrap = function (source, options) {
   return angularStripe;
 };
 
-module.exports = [
-  '$q',
-  function ($q) {
-    internals.$q = $q;
+module.exports = function ($q) {
+  internals.$q = $q;
+  return internals.wrap(Stripe, {
+    card: {
+      reference: ['validateCardNumber', 'validateExpiry', 'validateCVC', 'cardType'],
+      promisify: ['createToken']
+    },
+    bankAccount: {
+      reference: ['validateRoutingNumber', 'validateAccountNumber'],
+      promisify: ['createToken']
+    }
+  });
+};
 
-    return internals.wrap(Stripe, {
-      card: {
-        reference: ['validateCardNumber', 'validateExpiry', 'validateCVC', 'cardType'],
-        promisify: ['createToken']
-      },
-      bankAccount: {
-        reference: ['validateRoutingNumber', 'validateAccountNumber'],
-        promisify: ['createToken']
-      }
-    });
-  }
-];
+module.exports.$inject = ['$q'];
