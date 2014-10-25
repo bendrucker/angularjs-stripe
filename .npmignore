@@ -3,3 +3,4 @@ components/
 **/.*
 karma.conf.js
 bower.json
+release/

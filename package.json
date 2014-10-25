@@ -4,7 +4,8 @@
   "description": "Angular service provider for interacting with Stripe",
   "main": "src/index.js",
   "scripts": {
-    "test": "karma start --browser PhantomJS --single-run"
+    "test": "karma start --browser PhantomJS --single-run",
+    "release": "release release"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "homepage": "https://github.com/bendrucker/angular-stripe",
   "devDependencies": {
     "browserify": "^6.2.0",
+    "browserify-bower-release": "~1.0.0",
     "browserify-istanbul": "~0.1.1",
     "browserify-shim": "^3.8.0",
     "chai": "~1.9.1",
