@@ -6,9 +6,11 @@
     "Ben Drucker <bvdrucker@gmail.com>"
   ],
   "description": "Angular service provider for interacting with Stripe",
-  "main": "src/module.js",
+  "main": "./release/angular-stripe.js",
   "moduleType": [
-    "node"
+    "node",
+    "amd",
+    "globals"
   ],
   "keywords": [
     "angular",
