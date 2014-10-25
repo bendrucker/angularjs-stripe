@@ -4,10 +4,21 @@ angular-stripe [![Build Status](https://travis-ci.org/bendrucker/angular-stripe.
 Angular provider for easy interaction with [Stripe.js](https://stripe.com/docs/stripe.js). angular-stripe wraps Stripe.js's async operations in `$q` promises, making response handling easier and eliminating `$scope.$apply` calls and other repetitive boilerplate in your application. 
 
 ## Setup
+```bash
+# use npm
+$ npm install angular-stripe
+# or bower
+$ bower install angular-stripe
+```
 
 angular-stripe expects Stripe.js to be available as `window.Stripe`.
 
 ```js
+// node module exports the string 'angular-stripe' for convenience
+angular.module('myApp', [
+  require('angular-stripe')
+]);
+// otherwise, include the code first then the module name
 angular.module('myApp', [
   'angular-stripe'
 ]);
