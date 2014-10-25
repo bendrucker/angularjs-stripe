@@ -8,7 +8,7 @@ Angular provider for easy interaction with [Stripe.js](https://stripe.com/docs/s
 # use npm
 $ npm install angular-stripe
 # or bower
-$ bower install angular-stripe2
+$ bower install angular-stripe
 ```
 
 angular-stripe expects Stripe.js to be available as `window.Stripe`.
