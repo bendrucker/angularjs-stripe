@@ -95,11 +95,19 @@ describe('stripe: Service', function () {
       });
 
       it('rejects on error', function () {
-        response.error = {};
+        response.error = {
+          code: 'invalid_expiry_year',
+          message: 'Your card\'s expiration year is invalid.',
+          param: 'exp_year',
+          type: 'card_error'
+        };
         Stripe.bankAccount.createToken = errorMock;
         var promise = stripe.bankAccount.createToken();
+        expect(promise).to.be.rejected
+          .then(function (err) {
+            expect(err).to.contain(response.error)
+          });
         $timeout.flush();
-        expect(promise).to.be.rejectedWith(response.error);
       });
 
     });

@@ -10,7 +10,7 @@ module.exports = function ($q) {
       return $q(function (resolve, reject) {
         receiver[method](data, function (status, response) {
           if (response.error) {
-            return reject(response.error);
+            return reject(angular.extend(new Error(), response.error));
           }
           else {
             return resolve(response);
