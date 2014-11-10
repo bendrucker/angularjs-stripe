@@ -55,17 +55,25 @@ describe('stripe: Service', function () {
 
       it('resolves on success', function () {
         Stripe.card.createToken = successMock;
-        var promise = stripe.card.createToken(data);
+        expect(stripe.card.createToken(data))
+          .to.eventually.equal(response);
         $timeout.flush();
-        expect(promise).to.eventually.equal(response);
       });
 
       it('rejects on error', function () {
-        response.error = {};
+        response.error = {
+          code: 'invalid_expiry_year',
+          message: 'Your card\'s expiration year is invalid.',
+          param: 'exp_year',
+          type: 'card_error'
+        };
         Stripe.card.createToken = errorMock;
-        var promise = stripe.card.createToken();
+        expect(stripe.card.createToken())
+          .to.be.rejected
+          .then(function (err) {
+            expect(err).to.contain(response.error)
+          });
         $timeout.flush();
-        expect(promise).to.be.rejectedWith(response.error);
       });
 
     });
@@ -89,21 +97,20 @@ describe('stripe: Service', function () {
 
       it('resolves on success', function () {
         Stripe.bankAccount.createToken = successMock;
-        var promise = stripe.bankAccount.createToken(data);
+        expect(stripe.bankAccount.createToken(data))
+          .to.eventually.equal(response);
         $timeout.flush();
-        expect(promise).to.eventually.equal(response);
       });
 
       it('rejects on error', function () {
         response.error = {
-          code: 'invalid_expiry_year',
-          message: 'Your card\'s expiration year is invalid.',
-          param: 'exp_year',
-          type: 'card_error'
+          message: 'Routing number must have 9 digits',
+          param: 'bank_account',
+          type: 'invalid_request_error'
         };
         Stripe.bankAccount.createToken = errorMock;
-        var promise = stripe.bankAccount.createToken();
-        expect(promise).to.be.rejected
+        expect(stripe.bankAccount.createToken())
+          .to.be.rejected
           .then(function (err) {
             expect(err).to.contain(response.error)
           });
