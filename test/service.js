@@ -3,13 +3,11 @@
 var angular = require('angular');
 var Stripe  = require('stripe');
 
-require('../src');
-
 describe('stripe: Service', function () {
 
   this.timeout(500);
 
-  beforeEach(angular.mock.module('angular-stripe'));
+  beforeEach(angular.mock.module(require('../')));
 
   var data, response, successMock, errorMock;
   beforeEach(function () {
