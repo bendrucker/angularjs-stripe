@@ -26,8 +26,8 @@ module.exports = function (config) {
   ],
 
   files: [
-    'components/angular/angular.js',
-    'components/angular-mocks/angular-mocks.js',
+    'node_modules/angular/angular.js',
+    'node_modules/angular-mocks/angular-mocks.js',
     'components/stripe/index.js',
     'node_modules/es5-shim/es5-shim.js',
     'node_modules/chai-as-promised/lib/chai-as-promised.js',

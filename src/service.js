@@ -6,13 +6,17 @@ var Stripe  = require('stripe');
 module.exports = function ($q) {
 
   function promisify (receiver, method) {
-    return  function (data) {
-      var deferred = $q.defer();
-      receiver[method](data, function (status, response) {
-        if (response.error) return deferred.reject(response.error);
-        return deferred.resolve(response);
+    return function (data) {
+      return $q(function (resolve, reject) {
+        receiver[method](data, function (status, response) {
+          if (response.error) {
+            return reject(response.error);
+          }
+          else {
+            return resolve(response);
+          }
+        });
       });
-      return deferred.promise;
     };
   }
 
