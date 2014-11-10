@@ -2,7 +2,7 @@
   "name": "angular-stripe",
   "version": "4.0.0",
   "description": "Angular service provider for interacting with Stripe",
-  "main": "src/index.js",
+  "main": "./src",
   "scripts": {
     "test": "karma start --browser PhantomJS --single-run",
     "release": "release release"
