@@ -29,7 +29,6 @@
     "browserify": "^6.2.0",
     "browserify-bower-release": "~1.0.2",
     "browserify-istanbul": "~0.1.1",
-    "browserify-shim": "^3.8.0",
     "chai": "~1.9.1",
     "chai-as-promised": "~4.1.1",
     "es5-shim": "~3.4.0",
@@ -55,5 +54,8 @@
     "transform": [
       "browserify-shim"
     ]
+  },
+  "dependencies": {
+    "browserify-shim": "^3.8.0"
   }
 }
