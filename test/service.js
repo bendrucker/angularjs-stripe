@@ -13,10 +13,10 @@ describe('stripe: Service', function () {
   beforeEach(function () {
     data = {};
     response = {};
-    successMock = sinon.spy(function (data, callback) {
+    successMock = sinon.spy(function (data, params, callback) {
       $timeout(angular.bind(null, callback, 200, response));
     });
-    errorMock = sinon.spy(function (data, callback) {
+    errorMock = sinon.spy(function (data, params, callback) {
       $timeout(angular.bind(null, callback, 400, response));
     });
   });
@@ -51,6 +51,22 @@ describe('stripe: Service', function () {
         sandbox.stub(Stripe.card, 'createToken');
         stripe.card.createToken(data);
         expect(Stripe.card.createToken).to.have.been.calledWith(data);
+      });
+
+      it('can pass params', function () {
+        var params = {};
+        sandbox.stub(Stripe.card, 'createToken');
+        stripe.card.createToken(data, params);
+        expect(Stripe.card.createToken).to.have.been.calledWith(data, params);
+      });
+
+      it('throw if params is a callback', function () {
+        sandbox.stub(Stripe.card, 'createToken');
+        expect(function () {
+          stripe.card.createToken(data, function () {});
+        })
+        .to.throw('cannot be a function');
+        expect(Stripe.card.createToken).to.not.have.been.called;
       });
 
       it('resolves on success', function () {

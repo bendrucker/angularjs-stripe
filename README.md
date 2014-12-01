@@ -48,11 +48,11 @@ angular
 
 Inject `stripe` into your services or controllers to access the API methods. `createToken` returns a `$q` promise. If Stripe responds with an error, the promise will be rejected. 
 
-#### `stripe.card.createToken(card)` -> `promise`
-
-Tokenizes a card using [`Stripe.card.createToken`](https://stripe.com/docs/stripe.js#card-createToken).
-
-#### `stripe.bankAccount.createToken(bankAccount)` -> `promise`
+#### `stripe.card.createToken(card [, params])` -> `promise`
+ 
+Tokenizes a card using [`Stripe.card.createToken`](https://stripe.com/docs/stripe.js#card-createToken). You can optionally pass a `key` property under `params` to use a different publishable key than the default to create that token. This is especially useful for applications using [Stripe Connect](https://stripe.com/connect).
+ 
+#### `stripe.bankAccount.createToken(bankAccount [, params])` -> `promise`
 
 Tokenizes a card using [`Stripe.bankAccount.createToken`](https://stripe.com/docs/stripe.js#bank-account-createToken).
 

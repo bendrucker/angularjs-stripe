@@ -6,9 +6,12 @@ var Stripe  = require('stripe');
 module.exports = function ($q) {
 
   function promisify (receiver, method) {
-    return function (data) {
+    return function (data, params) {
+      if (typeof params === 'function') {
+        throw new Error('"params" cannot be a function');
+      }
       return $q(function (resolve, reject) {
-        receiver[method](data, function (status, response) {
+        receiver[method](data, params, function (status, response) {
           if (response.error) {
             return reject(angular.extend(new Error(), response.error));
           }
