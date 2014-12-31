@@ -46,6 +46,8 @@ angular
   });
 ```
 
+<hr>
+
 ### `stripe`
 
 Inject `stripe` into your services or controllers to access the API methods. `createToken` returns a `$q` promise. If Stripe responds with an error, the promise will be rejected. 
