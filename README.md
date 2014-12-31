@@ -26,11 +26,13 @@ angular.module('myApp', [
 ]);
 ```
 
-## Configuration
+## API
+
+### `stripeProvider`
 
 angular-stripe exposes `stripeProvider` for configuring Stripe.js.
 
-#### `stripeProvider.setPublishableKey(key)` -> `undefined`
+##### `stripeProvider.setPublishableKey(key)` -> `undefined`
 
 Sets your Stripe [publishable key](https://stripe.com/docs/stripe.js#setting-publishable-key). 
 
@@ -44,19 +46,21 @@ angular
   });
 ```
 
-## Usage
+### `stripe`
 
 Inject `stripe` into your services or controllers to access the API methods. `createToken` returns a `$q` promise. If Stripe responds with an error, the promise will be rejected. 
 
-#### `stripe.card.createToken(card [, params])` -> `promise`
+##### `stripe.card.createToken(card [, params])` -> `promise`
  
 Tokenizes a card using [`Stripe.card.createToken`](https://stripe.com/docs/stripe.js#card-createToken). You can optionally pass a `key` property under `params` to use a different publishable key than the default to create that token. This is especially useful for applications using [Stripe Connect](https://stripe.com/connect).
+
+<hr>
  
-#### `stripe.bankAccount.createToken(bankAccount [, params])` -> `promise`
+##### `stripe.bankAccount.createToken(bankAccount [, params])` -> `promise`
 
 Tokenizes a card using [`Stripe.bankAccount.createToken`](https://stripe.com/docs/stripe.js#bank-account-createToken).
 
-### Example
+## Example
 
 ```js
 app.controller('PaymentController', function ($scope, $http, stripe) {
