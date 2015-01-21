@@ -4,8 +4,7 @@
   "description": "Angular service provider for interacting with Stripe",
   "main": "./src",
   "scripts": {
-    "test": "karma start --browser PhantomJS --single-run",
-    "release": "release release"
+    "test": "karma start --browser PhantomJS --single-run"
   },
   "repository": {
     "type": "git",
@@ -26,8 +25,6 @@
   "devDependencies": {
     "angular": "~1.3.2",
     "angular-mocks": "~1.3.2",
-    "browserify": "^6.2.0",
-    "browserify-bower-release": "~2.0.0",
     "browserify-istanbul": "~0.1.1",
     "chai": "~1.9.1",
     "chai-as-promised": "~4.1.1",
