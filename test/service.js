@@ -36,6 +36,10 @@ describe('stripe: Service', function () {
     sandbox.restore();
   });
 
+  it('exposes #setPublishableKey', function () {
+    expect(stripe.setPublishableKey).to.equal(Stripe.setPublishableKey);
+  });
+
   describe('card', function () {
 
     it('exposes helper methods', function () {

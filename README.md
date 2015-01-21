@@ -52,6 +52,10 @@ angular
 
 Inject `stripe` into your services or controllers to access the API methods. `createToken` returns a `$q` promise. If Stripe responds with an error, the promise will be rejected. 
 
+##### `stripe.setPublishableKey(key)` -> `undefined`
+
+Same as [`stripeProvider.setPublishableKey`](#stripeprovidersetpublishablekeykey---undefined)
+
 ##### `stripe.card.createToken(card [, params])` -> `promise`
  
 Tokenizes a card using [`Stripe.card.createToken`](https://stripe.com/docs/stripe.js#card-createToken). You can optionally pass a `key` property under `params` to use a different publishable key than the default to create that token. This is especially useful for applications using [Stripe Connect](https://stripe.com/connect).

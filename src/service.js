@@ -24,7 +24,9 @@ module.exports = function ($q) {
   }
 
   function wrap (source, options) {
-    var angularStripe = {};
+    var angularStripe = {
+      setPublishableKey: Stripe.setPublishableKey
+    };
     angular.forEach(options, function (methods, receiver) {
       var destination = angularStripe[receiver] = {};
       receiver = Stripe[receiver];
