@@ -1,12 +1,10 @@
 'use strict';
 
 import angular from 'angular';
-import Stripe from 'stripe';
-
 export default factory;
 
-factory.$inject = ['$q'];
-function factory ($q) {
+factory.$inject = ['Stripe', '$q'];
+function factory (Stripe, $q) {
 
   function promisify (receiver, method) {
     return function (data, params) {
