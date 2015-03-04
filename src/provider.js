@@ -1,8 +1,9 @@
 'use strict';
 
-var Stripe = require('stripe');
+import Stripe from 'stripe';
+import service from './service';
 
-module.exports = function () {
+export default function stripeProvider () {
   this.setPublishableKey = Stripe.setPublishableKey;
-  this.$get = require('./service');
+  this.$get = service;
 };

@@ -1,9 +1,12 @@
 'use strict';
 
-var angular = require('angular');
-var Stripe  = require('stripe');
+import angular from 'angular';
+import Stripe from 'stripe';
 
-module.exports = function ($q) {
+export default factory;
+
+factory.$inject = ['$q'];
+function factory ($q) {
 
   function promisify (receiver, method) {
     return function (data, params) {
@@ -24,11 +27,11 @@ module.exports = function ($q) {
   }
 
   function wrap (source, options) {
-    var angularStripe = {
+    const angularStripe = {
       setPublishableKey: Stripe.setPublishableKey
     };
     angular.forEach(options, function (methods, receiver) {
-      var destination = angularStripe[receiver] = {};
+      const destination = angularStripe[receiver] = {};
       receiver = Stripe[receiver];
       angular.forEach(methods.promisify, function (method) {
         destination[method] = promisify(receiver, method);
@@ -50,6 +53,4 @@ module.exports = function ($q) {
       promisify: ['createToken']
     }
   });
-};
-
-module.exports.$inject = ['$q'];
+}

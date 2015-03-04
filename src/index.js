@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports = require('angular')
-  .module('angular-stripe', [])
-  .provider('stripe', require('./provider'))
+import angular from 'angular';
+import provider from './provider';
+
+export default angular.module('angular-stripe', [])
+  .provider('stripe', provider)
   .name;

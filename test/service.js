@@ -1,15 +1,26 @@
 'use strict';
 
-var angular = require('angular');
-var Stripe  = require('stripe');
+import angular from 'angular';
+import 'angular-mocks';
+import sinon from 'sinon';
+import chai from 'chai';
+import sinonChai from 'sinon-chai';
+import 'es5-shim';
+import chaiAsPromised from 'chai-as-promised';
+import Stripe from 'stripe';
+import angularStripe from '../';
+
+const expect = chai.expect;
+
+chai.use(sinonChai).use(chaiAsPromised);
 
 describe('stripe: Service', function () {
 
   this.timeout(500);
 
-  beforeEach(angular.mock.module(require('../')));
+  beforeEach(angular.mock.module(angularStripe));
 
-  var data, response, successMock, errorMock;
+  let data, response, successMock, errorMock;
   beforeEach(function () {
     data = {};
     response = {};
@@ -21,13 +32,13 @@ describe('stripe: Service', function () {
     });
   });
 
-  var stripe, $timeout;
+  let stripe, $timeout;
   beforeEach(angular.mock.inject(function (_stripe_, _$timeout_) {
     stripe = _stripe_;
     $timeout = _$timeout_;
   }));
 
-  var sandbox;
+  let sandbox;
   beforeEach(function () {
     sandbox = sinon.sandbox.create();
   });
@@ -58,7 +69,7 @@ describe('stripe: Service', function () {
       });
 
       it('can pass params', function () {
-        var params = {};
+        const params = {};
         sandbox.stub(Stripe.card, 'createToken');
         stripe.card.createToken(data, params);
         expect(Stripe.card.createToken).to.have.been.calledWith(data, params);

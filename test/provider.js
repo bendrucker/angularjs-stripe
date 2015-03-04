@@ -1,13 +1,14 @@
 'use strict';
 
-var angular = require('angular');
-var Stripe  = require('stripe');
-
-require('../src');
+import angular from 'angular';
+import 'angular-mocks';
+import Stripe from 'stripe';
+import angularStripe from '../';
+import {expect} from 'chai';
 
 describe('Provider', function () {
 
-  beforeEach(angular.mock.module('angular-stripe'));
+  beforeEach(angular.mock.module(angularStripe));
 
   it('exposes Stripe#setPublishableKey', function () {
     angular.mock.module(function (stripeProvider) {
