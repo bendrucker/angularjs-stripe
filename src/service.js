@@ -48,6 +48,10 @@ module.exports = function ($q) {
     bankAccount: {
       reference: ['validateRoutingNumber', 'validateAccountNumber'],
       promisify: ['createToken']
+    },
+    bitcoinReceiver:{
+    	reference: ['cancelReceiverPoll'],
+		promisify: ['createReceiver','pollReceiver']
     }
   });
 };
