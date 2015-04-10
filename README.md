@@ -11,7 +11,7 @@ $ npm install angular-stripe
 $ bower install angular-stripe
 ```
 
-As of version `4.0`, angular-stripe requries Angular 1.3 or above. If you need Angular 1.2 support, use version 3.  
+For Angular 1.2 support, you'll need to load [angular-q-constructor](https://github.com/bendrucker/angular-q-constructor) first. 
 
 angular-stripe expects Stripe.js to be available as `window.Stripe`.
 
