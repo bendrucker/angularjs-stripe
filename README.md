@@ -60,6 +60,10 @@ Same as [`stripeProvider.setPublishableKey`](#stripeprovidersetpublishablekeykey
  
 Tokenizes a card using [`Stripe.card.createToken`](https://stripe.com/docs/stripe.js#card-createToken). You can optionally pass a `key` property under `params` to use a different publishable key than the default to create that token. This is especially useful for applications using [Stripe Connect](https://stripe.com/connect).
 
+##### `stripe.bitcoinReceiver.createReceiver(bitcoinTransaction[,)` -> `promise`
+
+Creates a BitcoinReceiver object [`Stripe.bitcoinReceiver.createReceiver`](https://stripe.com/docs/stripe.js#bitcoinreceiver-createreceiver)
+
 <hr>
  
 ##### `stripe.bankAccount.createToken(bankAccount [, params])` -> `promise`
@@ -91,6 +95,34 @@ app.controller('PaymentController', function ($scope, $http, stripe) {
         }
       });
   };
+  
+  // Bitcoin Docs - https://stripe.com/docs/stripe.js#collecting-bitcoin-payments
+  $scope.bitcoin_payment = function()
+  {
+    var bitcoin_transaction =
+    {
+      amount: 1000,
+      currency: 'usd',
+      description: 'some_description',
+      email: 'payinguser@example.com'
+    }
+
+    return stripe.bitcoinReceiver.createReceiver(bitcoin_transaction)
+    .then(function (bitcoin_recv)
+    {
+      return stripe.bitcoinReceiver.pollReceiver(bitcoin_recv.id)
+      .then(function(poll_result)
+      {
+        return $http.post('https://yourserver.com/bitcoin-payment', payload);
+      });
+
+      //Cancel Poll Receiver after 10 minutes
+      $timeout(function()
+      {
+        stripe.bitcoinReceiver.cancelReceiverPoll(bitcoin_recv.id);
+      },60000);
+    })
+  }
 });
 ```
 
@@ -106,4 +138,7 @@ angular-stripe also directly exposes Stripe's helper methods for easy access:
 * `bankAccount`
   * [`validateRoutingNumber`](https://stripe.com/docs/stripe.js#bank-account-validateRoutingNumber)
   * [`validateAccountNumber`](https://stripe.com/docs/stripe.js#bank-account-validateAccountNumber)
+* `bitcoinReceiver`
+  * [`pollReceiver`](https://stripe.com/docs/stripe.js#bitcoinreceiver-pollreceiver)
+  * [`cancelReceiverPoll`](https://stripe.com/docs/stripe.js#bitcoinreceiver-cancelreceiverpoll)
 
