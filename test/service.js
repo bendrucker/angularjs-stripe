@@ -5,14 +5,13 @@ import 'angular-mocks';
 import sinon from 'sinon';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
-import 'es5-shim';
-import chaiAsPromised from 'chai-as-promised';
 import Stripe from 'stripe';
 import angularStripe from '../';
 
+const inject = angular.mock.inject;
 const expect = chai.expect;
 
-chai.use(sinonChai).use(chaiAsPromised);
+chai.use(sinonChai);
 
 describe('stripe: Service', function () {
 
@@ -20,75 +19,61 @@ describe('stripe: Service', function () {
 
   beforeEach(angular.mock.module(angularStripe));
 
-  let data, response, successMock, errorMock;
+  let data, response, sandbox;
   beforeEach(function () {
     data = {};
     response = {};
-    successMock = sinon.spy(function (data, params, callback) {
-      $timeout(angular.bind(null, callback, 200, response));
-    });
-    errorMock = sinon.spy(function (data, params, callback) {
-      $timeout(angular.bind(null, callback, 400, response));
-    });
-  });
-
-  let stripe, $timeout;
-  beforeEach(angular.mock.inject(function (_stripe_, _$timeout_) {
-    stripe = _stripe_;
-    $timeout = _$timeout_;
-  }));
-
-  let sandbox;
-  beforeEach(function () {
     sandbox = sinon.sandbox.create();
   });
-
   afterEach(function () {
     sandbox.restore();
   });
 
-  it('exposes #setPublishableKey', function () {
+  it('exposes #setPublishableKey', inject(function (stripe) {
     expect(stripe.setPublishableKey).to.equal(Stripe.setPublishableKey);
-  });
+  }));
 
   describe('card', function () {
 
-    it('exposes helper methods', function () {
+    it('exposes helper methods', inject(function (stripe) {
       expect(stripe.card.validateCardNumber).to.equal(Stripe.card.validateCardNumber);
       expect(stripe.card.validateExpiry).to.equal(Stripe.card.validateExpiry);
       expect(stripe.card.validateCVC).to.equal(Stripe.card.validateCVC);
       expect(stripe.card.cardType).to.equal(Stripe.card.cardType);
-    });
+    }));
 
     describe('#createToken', function () {
 
       it('calls the Stripe.js method with the data', function () {
         sandbox.stub(Stripe.card, 'createToken');
-        stripe.card.createToken(data);
+        inject((stripe) => {
+          stripe.card.createToken(data);
+        });
         expect(Stripe.card.createToken).to.have.been.calledWith(data);
       });
 
       it('can pass params', function () {
         const params = {};
         sandbox.stub(Stripe.card, 'createToken');
-        stripe.card.createToken(data, params);
+        inject((stripe) => {
+          stripe.card.createToken(data, params);
+        });
         expect(Stripe.card.createToken).to.have.been.calledWith(data, params);
       });
 
-      it('throw if params is a callback', function () {
-        sandbox.stub(Stripe.card, 'createToken');
-        expect(function () {
-          stripe.card.createToken(data, function () {});
-        })
-        .to.throw('cannot be a function');
-        expect(Stripe.card.createToken).to.not.have.been.called;
-      });
-
-      it('resolves on success', function () {
-        Stripe.card.createToken = successMock;
-        expect(stripe.card.createToken(data))
-          .to.eventually.equal(response);
-        $timeout.flush();
+      it('resolves on success', function (done) {
+        inject(($timeout) => {
+          Stripe.card.createToken = sinon.spy(function (data, callback) {
+            $timeout(angular.bind(null, callback, 200, response));
+          });
+        });
+        inject((stripe, $timeout) => {
+          stripe.card.createToken(data).then(function (res) {
+            expect(res).to.equal(response);
+            done();
+          });
+          $timeout.flush();
+        });
       });
 
       it('rejects on error', function () {
@@ -98,54 +83,20 @@ describe('stripe: Service', function () {
           param: 'exp_year',
           type: 'card_error'
         };
-        Stripe.card.createToken = errorMock;
-        expect(stripe.card.createToken())
-          .to.be.rejected
-          .then(function (err) {
-            expect(err).to.contain(response.error)
+        inject(($timeout) => {
+          Stripe.card.createToken = sinon.spy(function (data, callback) {
+            $timeout(angular.bind(null, callback, 400, response));
           });
-        $timeout.flush();
-      });
-
-    });
-
-  });
-
-  describe('bankAccount', function () {
-
-    it('exposes helper methods', function () {
-      expect(stripe.bankAccount.validateRoutingNumber).to.equal(Stripe.bankAccount.validateRoutingNumber);
-      expect(stripe.bankAccount.validateAccountNumber).to.equal(Stripe.bankAccount.validateAccountNumber);
-    });
-
-    describe('#createToken', function () {
-
-      it('calls the Stripe.js method with the data', function () {
-        sandbox.stub(Stripe.bankAccount, 'createToken');
-        stripe.bankAccount.createToken(data);
-        expect(Stripe.bankAccount.createToken).to.have.been.calledWith(data);
-      });
-
-      it('resolves on success', function () {
-        Stripe.bankAccount.createToken = successMock;
-        expect(stripe.bankAccount.createToken(data))
-          .to.eventually.equal(response);
-        $timeout.flush();
-      });
-
-      it('rejects on error', function () {
-        response.error = {
-          message: 'Routing number must have 9 digits',
-          param: 'bank_account',
-          type: 'invalid_request_error'
-        };
-        Stripe.bankAccount.createToken = errorMock;
-        expect(stripe.bankAccount.createToken())
-          .to.be.rejected
-          .then(function (err) {
-            expect(err).to.contain(response.error)
-          });
-        $timeout.flush();
+        });
+        inject((stripe, $timeout) => {
+          let err;
+          stripe.card.createToken(data)
+            .catch(function (_err_) {
+              err = _err_;
+            });
+          $timeout.flush();
+          expect(err).to.contain(response.error);
+        });
       });
 
     });

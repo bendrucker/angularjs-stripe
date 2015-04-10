@@ -4,12 +4,11 @@ module.exports = function (config) {
   config.set({
     frameworks: ['browserify', 'mocha'],
     browserify: {
-      debug: true,
-      transform: ['babelify', 'browserify-istanbul', 'browserify-shim']
+      debug: true
     },
     files: [
       'node_modules/angular/angular.js',
-      'components/stripe/index.js',
+      require.resolve('stripe-debug'),
       'test/*.js'
     ],
     preprocessors: {
