@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = function (config) {
   config.set({
@@ -22,5 +22,5 @@ module.exports = function (config) {
     },
     browsers: ['PhantomJS'],
     singleRun: false
-  });
-};
+  })
+}

@@ -4,7 +4,7 @@
   "description": "Angular service provider for interacting with Stripe",
   "main": "./src",
   "scripts": {
-    "test": "karma start --browser PhantomJS --single-run"
+    "test": "standard && karma start --browser PhantomJS --single-run"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
     "mocha": "~1.19.0",
     "sinon": "~1.10.0",
     "sinon-chai": "~2.5.0",
+    "standard": "~3.6.1",
     "stripe-debug": "~2.0.0"
   },
   "peerDependencies": {

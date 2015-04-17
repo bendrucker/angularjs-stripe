@@ -1,20 +1,19 @@
-'use strict';
+'use strict'
 
-import angular from 'angular';
-import 'angular-mocks';
-import Stripe from 'stripe';
-import angularStripe from '../';
-import {expect} from 'chai';
+/* global describe, it */
 
-describe('Provider', function () {
+import angular from 'angular'
+import 'angular-mocks'
+import Stripe from 'stripe'
+import angularStripe from '../'
+import {expect} from 'chai'
 
-  beforeEach(angular.mock.module(angularStripe));
-
-  it('exposes Stripe#setPublishableKey', function () {
-    angular.mock.module(function (stripeProvider) {
-      expect(stripeProvider.setPublishableKey).to.equal(Stripe.setPublishableKey);
-    });
-    angular.mock.inject();
-  });
-
-});
+describe('Provider', () => {
+  it('exposes Stripe#setPublishableKey', (done) => {
+    angular.mock.module(angularStripe, (stripeProvider) => {
+      expect(stripeProvider.setPublishableKey).to.equal(Stripe.setPublishableKey)
+      done()
+    })
+    angular.mock.inject()
+  })
+})
