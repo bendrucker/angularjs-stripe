@@ -57,5 +57,10 @@
     "babelify": "~5.0.3",
     "browserify-shim": "^3.8.0",
     "stripe-as-promised": "~1.0.0"
+  },
+  "standard": {
+    "ignore": [
+      "release/"
+    ]
   }
 }
