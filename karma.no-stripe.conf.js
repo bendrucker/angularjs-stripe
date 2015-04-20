@@ -8,10 +8,6 @@ module.exports = function (config) {
     },
     files: [
       'node_modules/angular/angular.js',
-      require.resolve('stripe-debug'),
-      'test/*.js'
-    ],
-    exclude: [
       'test/no-stripe.js'
     ],
     preprocessors: {

@@ -4,7 +4,7 @@
   "description": "Angular service provider for interacting with Stripe",
   "main": "./src",
   "scripts": {
-    "test": "standard && karma start --browser PhantomJS --single-run"
+    "test": "standard && karma start --single-run && karma start karma.no-stripe.conf.js --single-run"
   },
   "repository": {
     "type": "git",
