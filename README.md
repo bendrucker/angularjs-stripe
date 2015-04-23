@@ -13,7 +13,7 @@ $ bower install angular-stripe
 
 For Angular 1.2 support, you'll need to load [angular-q-constructor](https://github.com/bendrucker/angular-q-constructor) first. 
 
-angular-stripe expects Stripe.js to be available as `window.Stripe`.
+angular-stripe expects Stripe.js to be available as `window.Stripe` when it loads.
 
 ```js
 // node module exports the string 'angular-stripe' for convenience
