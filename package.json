@@ -2,7 +2,7 @@
   "name": "angular-stripe",
   "version": "4.2.4",
   "description": "Angular service provider for interacting with Stripe",
-  "main": "./src",
+  "main": "./lib",
   "scripts": {
     "test": "standard && karma start --single-run && karma start karma.no-stripe.conf.js --single-run"
   },
@@ -51,7 +51,6 @@
   },
   "browserify": {
     "transform": [
-      "babelify",
       "browserify-shim"
     ]
   },
