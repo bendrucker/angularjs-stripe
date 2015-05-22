@@ -3,7 +3,7 @@
 import angular from 'angular'
 import assertQCtor from 'angular-assert-q-constructor'
 import provider from './provider'
-import Stripe from 'stripe'
+const Stripe = typeof window !== 'undefined' ? window.Stripe : typeof global !== 'undefined' ? global.Stripe : null
 
 export default angular.module('angular-stripe', [
   assertQCtor
