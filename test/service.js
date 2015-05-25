@@ -7,8 +7,8 @@ import 'angular-mocks'
 import sinon from 'sinon'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
-import Stripe from 'stripe'
 import angularStripe from '../'
+const {Stripe} = window
 
 const inject = angular.mock.inject
 const expect = chai.expect

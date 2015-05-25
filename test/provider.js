@@ -4,9 +4,9 @@
 
 import angular from 'angular'
 import 'angular-mocks'
-import Stripe from 'stripe'
 import angularStripe from '../'
 import {expect} from 'chai'
+const {Stripe} = window
 
 describe('Provider', () => {
   it('exposes Stripe#setPublishableKey', (done) => {
