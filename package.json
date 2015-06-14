@@ -79,11 +79,12 @@
     }
   },
   "jspm": {
+    "main": "src/index.js",
     "format": "es6",
-    "registry": "jspm",
+    "registry": "github",
     "dependencies": {
-      "angular": "~1.3.14",
-      "stripe-as-promised": "~1.0.0"
+      "angular/bower-angular": "~1.3.14",
+      "bendrucker/stripe-as-promised": "~1.0.0"
     }
   }
 }
