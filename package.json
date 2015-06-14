@@ -83,7 +83,7 @@
     "format": "es6",
     "registry": "github",
     "dependencies": {
-      "angular/bower-angular": "~1.3.14",
+      "angular/bower-angular": "~1.4.0",
       "bendrucker/stripe-as-promised": "~1.0.0"
     }
   }
