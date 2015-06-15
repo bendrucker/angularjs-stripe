@@ -1,0 +1,3 @@
+ui: mocha-bdd
+scripts:
+- node_modules/stripe-debug/stripe-debug.js

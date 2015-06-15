@@ -1,18 +1,3 @@
 language: node_js
 node_js:
 - iojs
-after_script:
-- npm install -g codeclimate-test-reporter
-- codeclimate < ./coverage/lcov.info
-deploy:
-  provider: npm
-  email: bvdrucker@gmail.com
-  api_key:
-    secure: v/bu4eDJrTzplMHwOBLas5VxQsxLblu6xQVwSjmNrShXhzpGJYLswbj4yQKyymXsNj8H2rpgmRuTAWTrne9pZM2xU6mz/PKwucau40UZ9XcSEeZwLqcXCKhvYNea3BH/qS5AzrC6UFJzMBprSS7kQe8ZSyTl0uodLS5DY3OPf1I=
-  on:
-    all_branches: true
-    tags: true
-    repo: bendrucker/angular-stripe
-env:
-  global:
-    secure: KnNszIvbnBk4wHqQMvPKJSgeM7y2rzelelmdtFy/nBwIB+yjONDqUogdcLWU2u/PYfhsnRJ63JmI1sOr+FgW4m7u4a/QArYlm34/ZRvbxvg4OduurRZlVOHNTOpcwcX3EvMVQ/FCSRZhiE+10DruLKrjPtPdTlYtaEaHHMM29NM=

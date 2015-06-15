@@ -1,8 +1,8 @@
 'use strict'
 
-import stripeAsPromised from 'stripe-as-promised'
+var stripeAsPromised = require('stripe-as-promised')
 
-export default factory
+module.exports = factory
 
 factory.$inject = ['Stripe', '$q']
 function factory (Stripe, $q) {

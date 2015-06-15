@@ -1,7 +1,8 @@
 'use strict'
 
-import service from './service'
-export default stripeProvider
+var service = require('./service')
+
+module.exports = stripeProvider
 
 stripeProvider.$inject = ['Stripe']
 function stripeProvider (Stripe) {

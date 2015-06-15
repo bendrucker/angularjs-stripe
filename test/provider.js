@@ -2,15 +2,15 @@
 
 /* global describe, it */
 
-import angular from 'angular'
-import 'angular-mocks'
-import angularStripe from '../'
-import {expect} from 'chai'
-const {Stripe} = window
+var angular = require('angular')
+require('angular-mocks/ngMock')
+var expect = require('chai').expect
+var Stripe = window.Stripe
+var angularStripe = require('../')
 
-describe('Provider', () => {
-  it('exposes Stripe#setPublishableKey', (done) => {
-    angular.mock.module(angularStripe, (stripeProvider) => {
+describe('Provider', function () {
+  it('exposes Stripe#setPublishableKey', function (done) {
+    angular.mock.module(angularStripe, function (stripeProvider) {
       expect(stripeProvider.setPublishableKey).to.equal(Stripe.setPublishableKey)
       done()
     })

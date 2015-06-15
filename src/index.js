@@ -1,12 +1,11 @@
 'use strict'
 
-import angular from 'angular'
-import assertQCtor from 'angular-assert-q-constructor'
-import provider from './provider'
-const Stripe = typeof window !== 'undefined' ? window.Stripe : typeof global !== 'undefined' ? global.Stripe : null
+var angular = require('angular')
+var provider = require('./provider')
+var Stripe = typeof window !== 'undefined' ? window.Stripe : typeof global !== 'undefined' ? global.Stripe : null
 
-export default angular.module('angular-stripe', [
-  assertQCtor
+module.exports = angular.module('angular-stripe', [
+  require('angular-assert-q-constructor')
 ])
 .constant('Stripe', Stripe)
 .provider('stripe', provider)

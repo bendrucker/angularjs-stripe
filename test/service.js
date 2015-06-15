@@ -2,26 +2,22 @@
 
 /* global describe, it, beforeEach, afterEach */
 
-import angular from 'angular'
-import 'angular-mocks'
-import sinon from 'sinon'
-import chai from 'chai'
-import sinonChai from 'sinon-chai'
-import angularStripe from '../'
-const {Stripe} = window
+var angular = require('angular')
+require('angular-mocks/ngMock')
+var sinon = require('sinon')
+var expect = require('chai').use(require('sinon-chai')).expect
+var angularStripe = require('../')
+var Stripe = window.Stripe
 
-const inject = angular.mock.inject
-const expect = chai.expect
-
-chai.use(sinonChai)
+var inject = angular.mock.inject
 
 describe('stripe: Service', function () {
   this.timeout(500)
 
   beforeEach(angular.mock.module(angularStripe))
 
-  let data, response, sandbox
-  beforeEach(() => {
+  var data, response, sandbox
+  beforeEach(function () {
     data = {}
     response = {}
     sandbox = sinon.sandbox.create()
@@ -30,12 +26,12 @@ describe('stripe: Service', function () {
     sandbox.restore()
   })
 
-  it('exposes #setPublishableKey', inject((stripe) => {
+  it('exposes #setPublishableKey', inject(function (stripe) {
     expect(stripe.setPublishableKey).to.equal(Stripe.setPublishableKey)
   }))
 
   describe('card', function () {
-    it('exposes helper methods', inject((stripe) => {
+    it('exposes helper methods', inject(function (stripe) {
       expect(stripe.card.validateCardNumber).to.equal(Stripe.card.validateCardNumber)
       expect(stripe.card.validateExpiry).to.equal(Stripe.card.validateExpiry)
       expect(stripe.card.validateCVC).to.equal(Stripe.card.validateCVC)
@@ -43,31 +39,31 @@ describe('stripe: Service', function () {
     }))
 
     describe('#createToken', function () {
-      it('calls the Stripe.js method with the data', () => {
+      it('calls the Stripe.js method with the data', function () {
         sandbox.stub(Stripe.card, 'createToken')
-        inject((stripe) => {
+        inject(function (stripe) {
           stripe.card.createToken(data)
         })
         expect(Stripe.card.createToken).to.have.been.calledWith(data)
       })
 
-      it('can pass params', () => {
-        const params = {}
+      it('can pass params', function () {
+        var params = {}
         sandbox.stub(Stripe.card, 'createToken')
-        inject((stripe) => {
+        inject(function (stripe) {
           stripe.card.createToken(data, params)
         })
         expect(Stripe.card.createToken).to.have.been.calledWith(data, params)
       })
 
-      it('resolves on success', (done) => {
-        inject(($timeout) => {
-          Stripe.card.createToken = sinon.spy((data, callback) => {
+      it('resolves on success', function (done) {
+        inject(function ($timeout) {
+          Stripe.card.createToken = sinon.spy(function (data, callback) {
             $timeout(angular.bind(null, callback, 200, response))
           })
         })
-        inject((stripe, $timeout) => {
-          stripe.card.createToken(data).then((res) => {
+        inject(function (stripe, $timeout) {
+          stripe.card.createToken(data).then(function (res) {
             expect(res).to.equal(response)
             done()
           })
@@ -75,22 +71,22 @@ describe('stripe: Service', function () {
         })
       })
 
-      it('rejects on error', () => {
+      it('rejects on error', function () {
         response.error = {
           code: 'invalid_expiry_year',
           message: 'Your card\'s expiration year is invalid.',
           param: 'exp_year',
           type: 'card_error'
         }
-        inject(($timeout) => {
-          Stripe.card.createToken = sinon.spy((data, callback) => {
+        inject(function ($timeout) {
+          Stripe.card.createToken = sinon.spy(function (data, callback) {
             $timeout(angular.bind(null, callback, 400, response))
           })
         })
-        inject((stripe, $timeout) => {
-          let err
+        inject(function (stripe, $timeout) {
+          var err
           stripe.card.createToken(data)
-            .catch((_err_) => {
+            .catch(function (_err_) {
               err = _err_
             })
           $timeout.flush()
