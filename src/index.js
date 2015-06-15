@@ -2,7 +2,7 @@
 
 var angular = require('angular')
 var provider = require('./provider')
-var Stripe = typeof window !== 'undefined' ? window.Stripe : typeof global !== 'undefined' ? global.Stripe : null
+var Stripe = window.Stripe
 
 module.exports = angular.module('angular-stripe', [
   require('angular-assert-q-constructor')
