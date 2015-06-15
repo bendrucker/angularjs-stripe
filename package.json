@@ -1,13 +1,9 @@
 {
   "name": "angular-stripe",
-  "version": "4.2.7",
+  "version": "4.2.8",
   "description": "Angular service provider for interacting with Stripe",
   "main": "./src",
-  "scripts": {
-    "test": "standard && zuul --phantom -- test/*.js",
-    "umd": "browserify -e . -s angularStripe -g [exposify --expose [ --angular=angular ] ] -p derequire/plugin > ./release/angular-stripe.js",
-    "preversion": "npm run umd && git add -A ../release/* && git commit -m 'UMD Build'"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git://github.com/bendrucker/angular-stripe.git"
