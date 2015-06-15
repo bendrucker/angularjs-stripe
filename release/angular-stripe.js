@@ -396,12 +396,11 @@ function factory (Stripe, $q) {
 }
 
 },{"stripe-as-promised":9}],12:[function(_dereq_,module,exports){
-(function (global){
 'use strict'
 
 var angular = (window.angular)
 var provider = _dereq_('./provider')
-var Stripe = typeof window !== 'undefined' ? window.Stripe : typeof global !== 'undefined' ? global.Stripe : null
+var Stripe = window.Stripe
 
 module.exports = angular.module('angular-stripe', [
   _dereq_('angular-assert-q-constructor')
@@ -416,6 +415,5 @@ function verifyQ (assertQConstructor) {
   assertQConstructor('angular-stripe: For Angular <= 1.2 support, first load https://github.com/bendrucker/angular-q-constructor')
 }
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./provider":10,"angular-assert-q-constructor":6}]},{},[12])(12)
 });
