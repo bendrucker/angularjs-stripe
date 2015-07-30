@@ -6,9 +6,9 @@ Angular provider for easy interaction with [Stripe.js](https://stripe.com/docs/s
 ## Setup
 ```bash
 # use npm
-$ npm install angular-stripe
+$ npm install --save angular-stripe
 # or bower
-$ bower install angular-stripe
+$ bower install --save angular-stripe
 ```
 
 For Angular 1.2 support, you'll need to load [angular-q-constructor](https://github.com/bendrucker/angular-q-constructor) first. 
