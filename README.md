@@ -112,11 +112,11 @@ The following utility methods are also exposed:
 app.controller('PaymentController', function ($scope, $http, stripe) {
   $scope.charge = function () {
     return stripe.card.createToken($scope.payment.card)
-      .then(function (token) {
-        console.log('token created for card ending in ', token.card.last4);
+      .then(function (response) {
+        console.log('token created for card ending in ', response.card.last4);
         var payment = angular.copy($scope.payment);
         payment.card = void 0;
-        payment.token = token.id;
+        payment.token = response.id;
         return $http.post('https://yourserver.com/payments', payment);
       })
       .then(function (payment) {
