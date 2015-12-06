@@ -1,6 +1,5 @@
 {
   "name": "angular-stripe",
-  "version": "4.2.4",
   "homepage": "https://github.com/bendrucker/angular-stripe",
   "authors": [
     "Ben Drucker <bvdrucker@gmail.com>"
