@@ -90,12 +90,9 @@ describe('stripe: Service', function () {
               err = _err_
             })
           $timeout.flush()
-          expect(err).to.contain(response.error)
+          expect(err.message).to.contain(response.error.message)
         })
       })
-
     })
-
   })
-
 })
