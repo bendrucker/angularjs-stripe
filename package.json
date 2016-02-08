@@ -1,6 +1,6 @@
 {
   "name": "angular-stripe",
-  "version": "4.2.9",
+  "version": "4.2.10",
   "description": "Angular service provider for interacting with Stripe",
   "main": "./src",
   "scripts": {
