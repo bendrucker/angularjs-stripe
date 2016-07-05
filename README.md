@@ -3,15 +3,12 @@ angular-stripe [![Build Status](https://travis-ci.org/bendrucker/angular-stripe.
 
 Angular provider for easy interaction with [Stripe.js](https://stripe.com/docs/stripe.js). angular-stripe wraps Stripe.js's async operations in `$q` promises, making response handling easier and eliminating `$scope.$apply` calls and other repetitive boilerplate in your application. Check out [angular-credit-cards](https://github.com/bendrucker/angular-credit-cards) for validating your credit card forms. angular-stripe is powered by [stripe-as-promised](https://github.com/bendrucker/stripe-as-promised).
 
-## Setup
+## Installing
 ```bash
-# use npm
 $ npm install --save angular-stripe
-# or bower
-$ bower install --save angular-stripe
 ```
 
-For Angular 1.2 support, you'll need to load [angular-q-constructor](https://github.com/bendrucker/angular-q-constructor) first. 
+## Usage
 
 angular-stripe expects Stripe.js to be available as `window.Stripe` when it loads.
 
