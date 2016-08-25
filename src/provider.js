@@ -14,11 +14,11 @@ function stripeProvider () {
   }
 
   this.$get = service
-  this.$get.$inject = ['$q', '$exceptionHandler']
+  this.$get.$inject = ['promisify', '$exceptionHandler']
 
-  function service ($q, $exceptionHandler) {
+  function service (promisify, $exceptionHandler) {
     if (stripe) return stripe
-    stripe = LazyStripe(this.url, $q)
+    stripe = LazyStripe(this.url, promisify)
     stripe.setPublishableKey(key)
     return stripe
   }

@@ -7,13 +7,13 @@ var stripeErrback = require('stripe-errback')
 
 module.exports = LazyStripe
 
-function LazyStripe (url, $q) {
+function LazyStripe (url, promisify) {
   var methods = stripeErrback.methods.async.concat(stripeErrback.methods.sync)
   var lazy = Lazy(methods, load)
 
   return methods.reduce(function (acc, method) {
     var fn = dot.get(lazy, method)
-    dot.set(acc, method, $q.promisify(fn))
+    dot.set(acc, method, promisify(fn))
     return acc
   }, {})
 
