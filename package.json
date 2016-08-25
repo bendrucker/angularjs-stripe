@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "angular-assert-q-constructor": "~1.0.1",
-    "angular-q-promisify": "~2.0.1",
+    "angular-q-promisify": "~3.0.0",
     "ap": "~0.2.0",
     "dot-prop": "~3.0.0",
     "lazy-async": "~1.0.1",
