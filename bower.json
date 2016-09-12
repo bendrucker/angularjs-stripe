@@ -1,8 +1,9 @@
 {
-  "name": "angular-stripe",
-  "homepage": "https://github.com/bendrucker/angular-stripe",
+  "name": "angular-stripe-customer",
+  "homepage": "https://github.com/therounds/angular-stripe",
   "authors": [
-    "Ben Drucker <bvdrucker@gmail.com>"
+    "Ben Drucker <bvdrucker@gmail.com>",
+    "Jeremy Wheaton <jerwheaton@gmail.com>"
   ],
   "description": "Angular service provider for interacting with Stripe",
   "main": "./release/angular-stripe.js",
