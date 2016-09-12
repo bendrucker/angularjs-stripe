@@ -69,10 +69,9 @@ var dot = _dereq_('dot-prop')
 
 var asyncMethods = [
   'card.createToken',
-  'bankAccount.createToken',
-  'bitcoinReceiver.createReceiver',
-  'bitcoinReceiver.pollReceiver',
-  'bitcoinReceiver.getReceiver',
+  'customer.create',
+  'customer.update',
+  'customer.retrieve',
 ]
 
 var helperMethods = [

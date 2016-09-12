@@ -1,5 +1,5 @@
 {
-  "name": "angular-stripe",
+  "name": "angular-stripe-customer",
   "version": "4.2.12",
   "description": "Angular service provider for interacting with Stripe",
   "main": "./src",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bendrucker/angular-stripe.git"
+    "url": "git://github.com/therounds/angular-stripe.git"
   },
   "keywords": [
     "angular",
@@ -18,12 +18,12 @@
     "promise",
     "wrapper"
   ],
-  "author": "Ben Drucker <bvdrucker@gmail.com> (http://www.bendrucker.me)",
+  "author": "Jeremy Wheaton <jerwheaton@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bendrucker/angular-stripe/issues"
+    "url": "https://github.com/therounds/angular-stripe/issues"
   },
-  "homepage": "https://github.com/bendrucker/angular-stripe",
+  "homepage": "https://github.com/therounds/angular-stripe",
   "devDependencies": {
     "angular": "~1.4.9",
     "angular-mocks": "~1.4.9",
