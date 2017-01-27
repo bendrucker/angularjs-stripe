@@ -7,6 +7,10 @@ Angular provider for easy interaction with [Stripe.js](https://stripe.com/docs/s
 ```bash
 $ npm install --save angular-stripe
 ```
+or use bower
+```bash
+$ bower install --save angular-stripe
+```
 
 ## Usage
 
