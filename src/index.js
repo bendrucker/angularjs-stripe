@@ -2,12 +2,11 @@
 
 var angular = require('angular')
 var provider = require('./provider')
-var Stripe = window.Stripe
 
 module.exports = angular.module('angular-stripe', [
+  require('angular-q-promisify'),
   require('angular-assert-q-constructor')
 ])
-.constant('Stripe', Stripe)
 .provider('stripe', provider)
 .run(verifyQ)
 .name

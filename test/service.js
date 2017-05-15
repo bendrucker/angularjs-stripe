@@ -5,13 +5,14 @@
 var angular = require('angular')
 require('angular-mocks/ngMock')
 var sinon = require('sinon')
-var expect = require('chai').use(require('sinon-chai')).expect
+var expect = require('chai').use(require('sinon-chai')).use(require('chai-as-promised')).expect
 var angularStripe = require('../')
-var Stripe = window.Stripe
 
 var inject = angular.mock.inject
 
 describe('stripe: Service', function () {
+  window.mocha.options.globals = (window.mocha.options.globals || []).concat(['Stripe'])
+
   this.timeout(500)
 
   beforeEach(angular.mock.module(angularStripe))
@@ -27,71 +28,57 @@ describe('stripe: Service', function () {
   })
 
   it('exposes #setPublishableKey', inject(function (stripe) {
-    expect(stripe.setPublishableKey).to.equal(Stripe.setPublishableKey)
+    expect(typeof stripe.setPublishableKey).to.equal('function')
   }))
 
+  it('can lazily set the publishable key', function () {
+    var p
+    inject(function (stripe) {
+      p = stripe.setPublishableKey('boop')
+        .then(function () {
+          expect(typeof window.Stripe).to.equal('function')
+          expect(window.Stripe.key).to.equal('boop')
+        })
+    })
+
+    return p
+  })
+
   describe('card', function () {
-    it('exposes helper methods', inject(function (stripe) {
-      expect(stripe.card.validateCardNumber).to.equal(Stripe.card.validateCardNumber)
-      expect(stripe.card.validateExpiry).to.equal(Stripe.card.validateExpiry)
-      expect(stripe.card.validateCVC).to.equal(Stripe.card.validateCVC)
-      expect(stripe.card.cardType).to.equal(Stripe.card.cardType)
-    }))
-
     describe('#createToken', function () {
-      it('calls the Stripe.js method with the data', function () {
-        sandbox.stub(Stripe.card, 'createToken')
+      it('resolves on success', function () {
+        var p
         inject(function (stripe) {
-          stripe.card.createToken(data)
-        })
-        expect(Stripe.card.createToken).to.have.been.calledWith(data)
-      })
+          sinon.stub(window.Stripe.card, 'createToken').yieldsAsync(200, response)
 
-      it('can pass params', function () {
-        var params = {}
-        sandbox.stub(Stripe.card, 'createToken')
-        inject(function (stripe) {
-          stripe.card.createToken(data, params)
-        })
-        expect(Stripe.card.createToken).to.have.been.calledWith(data, params)
-      })
-
-      it('resolves on success', function (done) {
-        inject(function ($timeout) {
-          Stripe.card.createToken = sinon.spy(function (data, callback) {
-            $timeout(angular.bind(null, callback, 200, response))
-          })
-        })
-        inject(function (stripe, $timeout) {
-          stripe.card.createToken(data).then(function (res) {
+          p = stripe.card.createToken(data).then(function (res) {
             expect(res).to.equal(response)
-            done()
           })
-          $timeout.flush()
         })
+
+        return p
       })
 
       it('rejects on error', function () {
-        response.error = {
-          code: 'invalid_expiry_year',
-          message: 'Your card\'s expiration year is invalid.',
-          param: 'exp_year',
-          type: 'card_error'
-        }
-        inject(function ($timeout) {
-          Stripe.card.createToken = sinon.spy(function (data, callback) {
-            $timeout(angular.bind(null, callback, 400, response))
-          })
-        })
-        inject(function (stripe, $timeout) {
-          var err
-          stripe.card.createToken(data)
-            .catch(function (_err_) {
-              err = _err_
+        var p
+        inject(function (stripe) {
+          response.error = {
+            code: 'invalid_expiry_year',
+            message: 'Your card\'s expiration year is invalid.',
+            param: 'exp_year',
+            type: 'card_error'
+          }
+
+          window.Stripe.card.createToken.restore()
+          sinon.stub(window.Stripe.card, 'createToken').yieldsAsync(400, response)
+
+          p = expect(stripe.card.createToken(data)).to.be.rejected
+            .then(function (err) {
+              expect(err.message).to.contain(response.error.message)
             })
-          $timeout.flush()
-          expect(err.message).to.contain(response.error.message)
         })
+
+        return p
       })
     })
   })
