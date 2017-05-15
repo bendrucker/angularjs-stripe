@@ -1,26 +1,28 @@
 angular-stripe [![Build Status](https://travis-ci.org/bendrucker/angular-stripe.svg?branch=master)](https://travis-ci.org/bendrucker/angular-stripe)
 ==============
 
-Angular provider for easy interaction with [Stripe.js](https://stripe.com/docs/stripe.js). angular-stripe wraps Stripe.js's async operations in `$q` promises, making response handling easier and eliminating `$scope.$apply` calls and other repetitive boilerplate in your application. Check out [angular-credit-cards](https://github.com/bendrucker/angular-credit-cards) for validating your credit card forms. angular-stripe is powered by [stripe-as-promised](https://github.com/bendrucker/stripe-as-promised).
+Angular provider for easy interaction with [Stripe.js](https://stripe.com/docs/stripe.js). angular-stripe wraps Stripe.js's async operations in `$q` promises, making response handling easier and eliminating `$scope.$apply` calls and other repetitive boilerplate in your application. Check out [angular-credit-cards](https://github.com/bendrucker/angular-credit-cards) for validating your credit card forms.
 
 ## Installing
-```bash
-$ npm install --save angular-stripe
+
+```sh
+npm install --save angular-stripe
 ```
 
 ## Usage
 
-angular-stripe expects Stripe.js to be available as `window.Stripe` when it loads.
+angular-stripe will load Stripe.js when it's first called. You don't need to directly [include Stripe.js via a `<script>` tag](https://stripe.com/docs/stripe.js#including-stripejs).
 
 ```js
 // node module exports the string 'angular-stripe' for convenience
 angular.module('myApp', [
   require('angular-stripe')
-]);
+])
+
 // otherwise, include the code first then the module name
 angular.module('myApp', [
   'angular-stripe'
-]);
+])
 ```
 
 ## API
@@ -28,6 +30,10 @@ angular.module('myApp', [
 ### `stripeProvider`
 
 angular-stripe exposes `stripeProvider` for configuring Stripe.js.
+
+##### `stripeProvider.url`
+
+The URL that will be used to fetch the Stripe.js library.
 
 ##### `stripeProvider.setPublishableKey(key)` -> `undefined`
 
@@ -39,8 +45,8 @@ angular
     'angular-stripe'
   ])
   .config(function (stripeProvider) {
-    stripeProvider.setPublishableKey('my_key');
-  });
+    stripeProvider.setPublishableKey('my_key')
+  })
 ```
 
 <hr>
@@ -107,26 +113,26 @@ The following utility methods are also exposed:
 
 ```js
 app.controller('PaymentController', function ($scope, $http, stripe) {
-  $scope.charge = function () {
+  $scope.charge = function charge () {
     return stripe.card.createToken($scope.payment.card)
       .then(function (response) {
-        console.log('token created for card ending in ', response.card.last4);
-        var payment = angular.copy($scope.payment);
-        payment.card = void 0;
-        payment.token = response.id;
-        return $http.post('https://yourserver.com/payments', payment);
+        console.log('token created for card ending in ', response.card.last4)
+        var payment = angular.copy($scope.payment)
+        payment.card = undefined
+        payment.token = response.id
+        return $http.post('https://yourserver.com/payments', payment)
       })
       .then(function (payment) {
-        console.log('successfully submitted payment for $', payment.amount);
+        console.log('successfully submitted payment for $', payment.amount)
       })
       .catch(function (err) {
         if (err.type && /^Stripe/.test(err.type)) {
-          console.log('Stripe error: ', err.message);
+          console.log('Stripe error: ', err.message)
         }
         else {
-          console.log('Other error occurred, possibly with your API', err.message);
+          console.log('Other error occurred, possibly with your API', err.message)
         }
-      });
-  };
-});
+      })
+  }
+})
 ```
