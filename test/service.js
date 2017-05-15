@@ -7,11 +7,12 @@ require('angular-mocks/ngMock')
 var sinon = require('sinon')
 var expect = require('chai').use(require('sinon-chai')).use(require('chai-as-promised')).expect
 var angularStripe = require('../')
-var Stripe = window.Stripe
 
 var inject = angular.mock.inject
 
 describe('stripe: Service', function () {
+  window.mocha.options.globals = (window.mocha.options.globals || []).concat(['Stripe'])
+
   this.timeout(500)
 
   beforeEach(angular.mock.module(angularStripe))
@@ -35,8 +36,8 @@ describe('stripe: Service', function () {
     inject(function (stripe) {
       p = stripe.setPublishableKey('boop')
         .then(function () {
-          expect(typeof Stripe).to.equal('function')
-          expect(Stripe.key).to.equal('boop')
+          expect(typeof window.Stripe).to.equal('function')
+          expect(window.Stripe.key).to.equal('boop')
         })
     })
 
@@ -48,7 +49,7 @@ describe('stripe: Service', function () {
       it('resolves on success', function () {
         var p
         inject(function (stripe) {
-          sinon.stub(Stripe.card, 'createToken').yieldsAsync(200, response)
+          sinon.stub(window.Stripe.card, 'createToken').yieldsAsync(200, response)
 
           p = stripe.card.createToken(data).then(function (res) {
             expect(res).to.equal(response)
@@ -68,8 +69,8 @@ describe('stripe: Service', function () {
             type: 'card_error'
           }
 
-          Stripe.card.createToken.restore()
-          sinon.stub(Stripe.card, 'createToken').yieldsAsync(400, response)
+          window.Stripe.card.createToken.restore()
+          sinon.stub(window.Stripe.card, 'createToken').yieldsAsync(400, response)
 
           p = expect(stripe.card.createToken(data)).to.be.rejected
             .then(function (err) {
