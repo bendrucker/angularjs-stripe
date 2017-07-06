@@ -5,8 +5,14 @@ Angular provider for easy interaction with [Stripe.js](https://stripe.com/docs/s
 
 ## Installing
 
+### npm
 ```sh
 npm install --save angular-stripe
+```
+### bower
+
+```sh
+bower install --save angular-stripe
 ```
 
 ## Usage
