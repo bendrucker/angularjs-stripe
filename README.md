@@ -1,4 +1,4 @@
-angular-stripe [![Build Status](https://travis-ci.org/bendrucker/angular-stripe.svg?branch=master)](https://travis-ci.org/bendrucker/angular-stripe)
+angular-stripe [![Build Status](https://travis-ci.org/bendrucker/angular-stripe.svg?branch=master)](https://travis-ci.org/bendrucker/angular-stripe) [![Greenkeeper badge](https://badges.greenkeeper.io/bendrucker/angular-stripe.svg)](https://greenkeeper.io/)
 ==============
 
 Angular provider for easy interaction with [Stripe.js](https://stripe.com/docs/stripe.js). angular-stripe wraps Stripe.js's async operations in `$q` promises, making response handling easier and eliminating `$scope.$apply` calls and other repetitive boilerplate in your application. Check out [angular-credit-cards](https://github.com/bendrucker/angular-credit-cards) for validating your credit card forms.
